@@ -1,0 +1,344 @@
+<!doctype html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Codivio</title>
+  <style>
+    :root {
+      --bg: #0f1220;
+      --panel: #151a2b;
+      --muted: #7a87a3;
+      --text: #e6eaf2;
+      --accent: #6ee7b7;
+      --accent-2: #60a5fa;
+      --danger: #f87171;
+      --border: #23304a;
+    }
+
+    * {
+      box-sizing: border-box
+    }
+
+    html,
+    body {
+      height: 100%
+    }
+
+    body {
+      margin: 0;
+      font: 14px/1.45 system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color: var(--text);
+      background: linear-gradient(180deg, #0d1020 0%, #0b1224 100%);
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--border);
+      background: rgba(15, 18, 32, .6);
+      backdrop-filter: saturate(1.2) blur(6px);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 16px;
+      letter-spacing: .3px;
+      color: #fff
+    }
+
+    header .badge {
+      font-size: 12px;
+      color: var(--muted)
+    }
+
+    .wrap {
+      display: grid;
+      gap: 10px;
+      grid-template-columns: 1fr 1fr;
+      padding: 10px;
+      height: calc(100dvh - 58px);
+    }
+
+    @media (max-width: 900px) {
+      .wrap {
+        grid-template-columns: 1fr;
+        height: auto
+      }
+    }
+
+    .panel {
+      display: flex;
+      flex-direction: column;
+      min-height: 320px;
+      background: linear-gradient(180deg, rgba(21, 26, 43, .9), rgba(21, 26, 43, .85));
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, .25), inset 0 1px 0 rgba(255, 255, 255, .02);
+    }
+
+    .panel-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--border);
+      background: rgba(18, 23, 40, .6);
+    }
+
+    .panel-title {
+      font-weight: 600;
+      color: #cfd8ea;
+      font-size: 13px
+    }
+
+    .controls {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      flex-wrap: wrap
+    }
+
+    .controls .group {
+      display: flex;
+      gap: 8px;
+      align-items: center
+    }
+
+    .btn {
+      appearance: none;
+      border: 1px solid var(--border);
+      background: #0f1425;
+      color: var(--text);
+      padding: 8px 10px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 12px;
+      transition: .2s ease;
+    }
+
+    .btn:hover {
+      filter: brightness(1.1)
+    }
+
+    .btn:disabled {
+      opacity: .6;
+      cursor: not-allowed
+    }
+
+    .btn.accent {
+      border-color: transparent;
+      background: linear-gradient(90deg, var(--accent) 0%, var(--accent-2) 100%);
+      color: #08101e
+    }
+
+    .btn.danger {
+      border-color: #3c1f26;
+      background: #2a0f14;
+      color: #ffd9de
+    }
+
+    .tick {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      color: var(--muted)
+    }
+
+    .code {
+      width: 100%;
+      height: 100%;
+      border: 0;
+      resize: none;
+      outline: none;
+      padding: 12px 14px;
+      background: #0c1120;
+      color: #e7ecf7;
+      font: 13px/1.5 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      tab-size: 2;
+      caret-color: #7dd3fc;
+    }
+
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+      background: #ffffff;
+      border-top: 1px solid var(--border)
+    }
+
+    .status {
+      font-size: 12px;
+      color: var(--muted);
+      padding: 8px 12px;
+      border-top: 1px solid var(--border);
+      background: rgba(18, 23, 40, .6)
+    }
+
+    .hint {
+      margin: 0;
+      color: #aab4cf;
+      font-size: 12px
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>Codivio<span class="badge">__Editor de Código</span></h1>
+    <p class="hint">Dica: ative “Auto atualizar” para ver mudanças em tempo real.</p>
+  </header>
+
+  <main class="wrap">
+    <section class="panel" aria-label="Editor de código">
+      <div class="panel-head">
+        <div class="panel-title">Editor</div>
+        <div class="controls">
+          <div class="group">
+            <label class="tick">
+              <input id="auto" type="checkbox" checked /> Auto atualizar
+            </label>
+          </div>
+          <div class="group">
+            <button id="run" class="btn accent">Executar</button>
+            <button id="reset" class="btn danger">Limpar</button>
+            <button id="download" class="btn">Baixar .html</button>
+          </div>
+        </div>
+      </div>
+      <textarea id="code" class="code" spellcheck="false"></textarea>
+      <div class="status" id="status">Pronto</div>
+    </section>
+
+    <section class="panel" aria-label="Visualização do HTML">
+      <div class="panel-head">
+        <div class="panel-title">Visualização</div>
+        <div class="controls">
+          <button id="popup" class="btn">Abrir em nova aba</button>
+        </div>
+      </div>
+      <iframe id="preview" title="Pré-visualização" sandbox="allow-forms allow-modals allow-pointer-lock allow-popups allow-scripts"></iframe>
+      <div class="status">Isolado em iframe com sandbox</div>
+    </section>
+  </main>
+
+  <script>
+    (function() {
+      const el = {
+        code: document.getElementById('code'),
+        preview: document.getElementById('preview'),
+        run: document.getElementById('run'),
+        reset: document.getElementById('reset'),
+        download: document.getElementById('download'),
+        auto: document.getElementById('auto'),
+        status: document.getElementById('status'),
+        popup: document.getElementById('popup'),
+      };
+      const TEMPLATE = `<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exemplo de Página HTML</title>
+</head>
+<body>
+    <h1>Olá, Mundo!</h1>
+    <p>Esta é uma página HTML simples.</p>
+</body>
+</html>`;
+      // Persistência simples
+      const KEY = 'mini-html-editor';
+      const load = () => localStorage.getItem(KEY) || TEMPLATE;
+      const save = (val) => localStorage.setItem(KEY, val);
+      // Atualização com debounce
+      let t;
+      const debounce = (fn, ms = 300) => (...args) => {
+        clearTimeout(t);
+        t = setTimeout(() => fn(...args), ms);
+      };
+
+      function updatePreview(src) {
+        // Usa srcdoc p/ isolar conteúdo
+        el.preview.srcdoc = src;
+        const time = new Date().toLocaleTimeString();
+        el.status.textContent = `Atualizado às ${time}`;
+      }
+
+      function run() {
+        const html = el.code.value;
+        save(html);
+        updatePreview(html);
+      }
+
+      function reset() {
+        if (!confirm('Limpar o editor e voltar ao modelo inicial?')) return;
+        el.code.value = TEMPLATE;
+        run();
+      }
+
+      function download() {
+        const blob = new Blob([el.code.value], {
+          type: 'text/html;charset=utf-8'
+        });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'index.html';
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        URL.revokeObjectURL(url);
+      }
+
+      function popup() {
+        const win = window.open('', '_blank');
+        if (win) {
+          win.document.open();
+          win.document.write(el.code.value);
+          win.document.close();
+        } else {
+          alert('Permita pop-ups para abrir em nova aba.');
+        }
+      }
+      // Inicialização
+      el.code.value = load();
+      run();
+      // Eventos
+      el.run.addEventListener('click', run);
+      el.reset.addEventListener('click', reset);
+      el.download.addEventListener('click', download);
+      el.popup.addEventListener('click', popup);
+      const onType = debounce(() => {
+        if (el.auto.checked) run();
+      }, 300);
+      el.code.addEventListener('input', onType);
+      el.auto.addEventListener('change', () => {
+        el.run.disabled = el.auto.checked;
+        if (el.auto.checked) run();
+      });
+      el.run.disabled = el.auto.checked;
+      // Tab inteligente (insere 2 espaços)
+      el.code.addEventListener('keydown', (e) => {
+        if (e.key === 'Tab') {
+          e.preventDefault();
+          const start = el.code.selectionStart;
+          const end = el.code.selectionEnd;
+          const val = el.code.value;
+          el.code.value = val.slice(0, start) + '  ' + val.slice(end);
+          el.code.selectionStart = el.code.selectionEnd = start + 2;
+        }
+      });
+    })();
+  </script>
+</body>
+
+</html>
