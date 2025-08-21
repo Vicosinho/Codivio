@@ -635,14 +635,14 @@
 
   <script>
     (function() {
-      // Configuração do Firebase (substitua com suas credenciais)
+      // Configuração do Firebase
       const firebaseConfig = {
-        apiKey: "AIzaSyCeYtmU59TXgPgEwiXGxn4APZ2pmuJ_cdI",
-        authDomain: "codivio-439835639386445.firebaseapp.com",
-        projectId: "codivio-439835639386445",
-        storageBucket: "codivio-439835639386445.firebasestorage.app",
-        messagingSenderId: "899032952247",
-        appId: "1:899032952247:web:2ceea2cd3ee7edd24c8c32"
+        apiKey: "AIzaSyC2TLEOg50UXzcfLXAVjZNJEKTQWfsIfLU",
+        authDomain: "codivio-32897528336.firebaseapp.com",
+        projectId: "codivio-32897528336",
+        storageBucket: "codivio-32897528336.firebasestorage.app",
+        messagingSenderId: "251131858151",
+        appId: "1:251131858151:web:93f0a762ff3f5311736642"
       };
       // Inicializar Firebase
       firebase.initializeApp(firebaseConfig);
