@@ -637,12 +637,12 @@
     (function() {
       // Configuração do Firebase
       const firebaseConfig = {
-        apiKey: "AIzaSyC2TLEOg50UXzcfLXAVjZNJEKTQWfsIfLU",
-        authDomain: "codivio-32897528336.firebaseapp.com",
-        projectId: "codivio-32897528336",
-        storageBucket: "codivio-32897528336.firebasestorage.app",
-        messagingSenderId: "251131858151",
-        appId: "1:251131858151:web:93f0a762ff3f5311736642"
+        apiKey: "AIzaSyAn_V4nYTDWPbdI76OCkqCGbIVCajs86t4",
+        authDomain: "codivio-587346843304678409486.firebaseapp.com",
+        projectId: "codivio-587346843304678409486",
+        storageBucket: "codivio-587346843304678409486.firebasestorage.app",
+        messagingSenderId: "818523317905",
+        appId: "1:818523317905:web:87f7c5e32eceed4a478130"
       };
       // Inicializar Firebase
       firebase.initializeApp(firebaseConfig);
