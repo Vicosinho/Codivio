@@ -17,14 +17,8 @@
       --border: #23304a;
     }
 
-    * {
-      box-sizing: border-box
-    }
-
-    html,
-    body {
-      height: 100%
-    }
+    * { box-sizing: border-box }
+    html, body { height: 100% }
 
     body {
       margin: 0;
@@ -44,19 +38,12 @@
       position: sticky;
       top: 0;
       z-index: 10;
+      gap: 12px;
     }
 
-    header h1 {
-      margin: 0;
-      font-size: 16px;
-      letter-spacing: .3px;
-      color: #fff
-    }
-
-    header .badge {
-      font-size: 12px;
-      color: var(--muted)
-    }
+    header h1 { margin: 0; font-size: 16px; letter-spacing: .3px; color: #fff }
+    header .badge { font-size: 12px; color: var(--muted) }
+    .hint { margin: 0; color: #aab4cf; font-size: 12px }
 
     .wrap {
       display: grid;
@@ -67,411 +54,87 @@
     }
 
     @media (max-width: 900px) {
-      .wrap {
-        grid-template-columns: 1fr;
-        height: auto
-      }
+      .wrap { grid-template-columns: 1fr; height: auto }
     }
 
     .panel {
-      display: flex;
-      flex-direction: column;
-      min-height: 320px;
+      display: flex; flex-direction: column; min-height: 320px;
       background: linear-gradient(180deg, rgba(21, 26, 43, .9), rgba(21, 26, 43, .85));
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      overflow: hidden;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, .25), inset 0 1px 0 rgba(255, 255, 255, .02);
+      border: 1px solid var(--border); border-radius: 10px; overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0,0,0,.25), inset 0 1px 0 rgba(255,255,255,.02);
     }
 
     .panel-head {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 10px 12px;
-      border-bottom: 1px solid var(--border);
-      background: rgba(18, 23, 40, .6);
-      gap: 10px;
-      flex-wrap: wrap;
+      display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap;
+      padding: 10px 12px; border-bottom: 1px solid var(--border); background: rgba(18, 23, 40, .6);
     }
 
-    .panel-title {
-      font-weight: 600;
-      color: #cfd8ea;
-      font-size: 13px
-    }
+    .panel-title { font-weight: 600; color: #cfd8ea; font-size: 13px }
 
-    .controls {
-      display: flex;
-      gap: 8px;
-      align-items: center;
-      flex-wrap: wrap
-    }
-
-    .controls .group {
-      display: flex;
-      gap: 8px;
-      align-items: center
-    }
+    .controls { display: flex; gap: 8px; align-items: center; flex-wrap: wrap }
+    .controls .group { display: flex; gap: 8px; align-items: center }
 
     .btn {
-      appearance: none;
-      border: 1px solid var(--border);
-      background: #0f1425;
-      color: var(--text);
-      padding: 8px 10px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-weight: 600;
-      font-size: 12px;
-      transition: .2s ease;
+      appearance: none; border: 1px solid var(--border); background: #0f1425; color: var(--text);
+      padding: 8px 10px; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 12px; transition: .2s ease;
     }
+    .btn:hover { filter: brightness(1.1) }
+    .btn:disabled { opacity: .6; cursor: not-allowed }
+    .btn.accent { border-color: transparent; background: linear-gradient(90deg, var(--accent) 0%, var(--accent-2) 100%); color: #08101e }
+    .btn.danger { border-color: #3c1f26; background: #2a0f14; color: #ffd9de }
+    .btn.tab { background: #0f1425 }
+    .btn.tab.active { border-color: var(--accent-2); color: var(--accent-2); box-shadow: inset 0 0 0 1px rgba(96,165,250,.2) }
 
-    .btn:hover {
-      filter: brightness(1.1)
-    }
+    .tick { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--muted) }
 
-    .btn:disabled {
-      opacity: .6;
-      cursor: not-allowed
-    }
+    /* Editor com números de linha */
+    .editor-wrap { display: flex; height: 100%; background: #0c1120; color: #e7ecf7; font: 13px/1.5 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace }
+    .line-numbers { background: #0f1425; color: var(--muted); border-right: 1px solid var(--border); min-width: 48px; user-select: none; overflow: hidden }
+    .line-numbers-inner { padding: 12px 8px 12px 10px; text-align: right; white-space: pre; line-height: 1.5; font: inherit }
+    .code { flex: 1; border: 0; resize: none; outline: none; padding: 12px 14px; background: transparent; color: inherit; font: inherit; line-height: 1.5; tab-size: 2; caret-color: #7dd3fc; overflow: auto }
 
-    .btn.accent {
-      border-color: transparent;
-      background: linear-gradient(90deg, var(--accent) 0%, var(--accent-2) 100%);
-      color: #08101e
-    }
+    iframe { width: 100%; height: 100%; border: 0; background: #ffffff; border-top: 1px solid var(--border) }
+    .status { font-size: 12px; color: var(--muted); padding: 8px 12px; border-top: 1px solid var(--border); background: rgba(18, 23, 40, .6) }
 
-    .btn.danger {
-      border-color: #3c1f26;
-      background: #2a0f14;
-      color: #ffd9de
-    }
+    /* Modal base */
+    .modal-overlay { position: fixed; inset: 0; background: rgba(8, 12, 24, 0.85); backdrop-filter: blur(4px); display: flex; align-items: center; justify-content: center; z-index: 100; padding: 20px }
+    .modal { background: var(--panel); border: 1px solid var(--border); border-radius: 12px; width: 100%; max-width: 400px; box-shadow: 0 20px 40px rgba(0,0,0,.4); overflow: hidden }
+    .modal-header { padding: 16px 20px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between }
+    .modal-title { font-weight: 600; font-size: 16px }
+    .modal-close { background: none; border: none; color: var(--muted); font-size: 20px; cursor: pointer; padding: 0; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; border-radius: 6px }
+    .modal-close:hover { background: rgba(255,255,255,.05) }
+    .modal-body { padding: 20px }
+    .form-group { margin-bottom: 16px }
+    .form-label { display: block; margin-bottom: 6px; font-size: 13px; color: #cfd8ea }
+    .form-input { width: 100%; padding: 10px 12px; border: 1px solid var(--border); background: #0f1425; border-radius: 8px; color: var(--text); font: inherit }
+    .form-input:focus { outline: none; border-color: var(--accent-2); box-shadow: 0 0 0 2px rgba(96,165,250,.2) }
+    .form-error { color: var(--danger); font-size: 12px; margin-top: 6px; display: none }
+    .form-error.show { display: block }
+    .modal-footer { padding: 16px 20px 20px; border-top: 1px solid var(--border); display: flex; flex-direction: column; gap: 12px }
+    .modal-action { width: 100%; padding: 10px; border-radius: 8px; border: none; font-weight: 600; cursor: pointer; font-size: 14px }
+    .btn-primary { background: linear-gradient(90deg, var(--accent) 0%, var(--accent-2) 100%); color: #08101e }
+    .btn-secondary { background: transparent; border: 1px solid var(--border); color: var(--text) }
 
-    /* Abas de notas */
-    .btn.tab {
-      background: #0f1425;
-    }
+    .auth-tabs { display: flex; margin-bottom: 20px; background: #0f1425; border-radius: 8px; padding: 4px }
+    .auth-tab { flex: 1; padding: 8px; text-align: center; background: transparent; border: none; color: var(--muted); border-radius: 6px; cursor: pointer; font-weight: 600; font-size: 13px }
+    .auth-tab.active { background: rgba(96,165,250,.15); color: var(--accent-2) }
 
-    .btn.tab.active {
-      border-color: var(--accent-2);
-      color: var(--accent-2);
-      box-shadow: inset 0 0 0 1px rgba(96, 165, 250, .2);
-    }
+    .user-menu { position: relative }
+    .user-btn { display: flex; align-items: center; gap: 8px; background: rgba(96,165,250,.1); border: 1px solid rgba(96,165,250,.2); color: var(--accent-2); padding: 6px 12px; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 13px }
+    .user-dropdown { position: absolute; top: 100%; right: 0; margin-top: 8px; background: var(--panel); border: 1px solid var(--border); border-radius: 8px; min-width: 160px; box-shadow: 0 10px 30px rgba(0,0,0,.3); display: none; z-index: 20 }
+    .user-dropdown.show { display: block }
+    .user-dropdown-item { display: block; width: 100%; padding: 10px 14px; background: none; border: none; text-align: left; color: var(--text); cursor: pointer; font-size: 13px }
+    .user-dropdown-item:hover { background: rgba(96,165,250,.1) }
+    .user-dropdown-divider { height: 1px; background: var(--border); margin: 4px 0 }
 
-    .tick {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 12px;
-      color: var(--muted)
-    }
-
-    /* Editor com números de linha (gutter) */
-    .editor-wrap {
-      display: flex;
-      height: 100%;
-      background: #0c1120;
-      color: #e7ecf7;
-      font: 13px/1.5 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-    }
-
-    .line-numbers {
-      background: #0f1425;
-      color: var(--muted);
-      border-right: 1px solid var(--border);
-      min-width: 48px;
-      user-select: none;
-      overflow: hidden;
-    }
-
-    .line-numbers-inner {
-      padding: 12px 8px 12px 10px;
-      text-align: right;
-      white-space: pre;
-      line-height: 1.5;
-      font: inherit;
-    }
-
-    .code {
-      flex: 1;
-      border: 0;
-      resize: none;
-      outline: none;
-      padding: 12px 14px;
-      background: transparent;
-      color: inherit;
-      font: inherit;
-      line-height: 1.5;
-      tab-size: 2;
-      caret-color: #7dd3fc;
-      overflow: auto;
-    }
-
-    iframe {
-      width: 100%;
-      height: 100%;
-      border: 0;
-      background: #ffffff;
-      border-top: 1px solid var(--border)
-    }
-
-    .status {
-      font-size: 12px;
-      color: var(--muted);
-      padding: 8px 12px;
-      border-top: 1px solid var(--border);
-      background: rgba(18, 23, 40, .6)
-    }
-
-    .hint {
-      margin: 0;
-      color: #aab4cf;
-      font-size: 12px
-    }
-
-    /* Modal de autenticação */
-    .modal-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: rgba(8, 12, 24, 0.85);
-      backdrop-filter: blur(4px);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 100;
-      padding: 20px;
-    }
-
-    .modal {
-      background: var(--panel);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      width: 100%;
-      max-width: 400px;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-      overflow: hidden;
-    }
-
-    .modal-header {
-      padding: 16px 20px;
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .modal-title {
-      font-weight: 600;
-      font-size: 16px;
-    }
-
-    .modal-close {
-      background: none;
-      border: none;
-      color: var(--muted);
-      font-size: 20px;
-      cursor: pointer;
-      padding: 0;
-      width: 30px;
-      height: 30px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 6px;
-    }
-
-    .modal-close:hover {
-      background: rgba(255, 255, 255, 0.05);
-    }
-
-    .modal-body {
-      padding: 20px;
-    }
-
-    .form-group {
-      margin-bottom: 16px;
-    }
-
-    .form-label {
-      display: block;
-      margin-bottom: 6px;
-      font-size: 13px;
-      color: #cfd8ea;
-    }
-
-    .form-input {
-      width: 100%;
-      padding: 10px 12px;
-      border: 1px solid var(--border);
-      background: #0f1425;
-      border-radius: 8px;
-      color: var(--text);
-      font: inherit;
-    }
-
-    .form-input:focus {
-      outline: none;
-      border-color: var(--accent-2);
-      box-shadow: 0 0 0 2px rgba(96, 165, 250, 0.2);
-    }
-
-    .form-error {
-      color: var(--danger);
-      font-size: 12px;
-      margin-top: 6px;
-      display: none;
-    }
-
-    .form-error.show {
-      display: block;
-    }
-
-    .modal-footer {
-      padding: 16px 20px 20px;
-      border-top: 1px solid var(--border);
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    .modal-action {
-      width: 100%;
-      padding: 10px;
-      border-radius: 8px;
-      border: none;
-      font-weight: 600;
-      cursor: pointer;
-      font-size: 14px;
-    }
-
-    .btn-primary {
-      background: linear-gradient(90deg, var(--accent) 0%, var(--accent-2) 100%);
-      color: #08101e;
-    }
-
-    .btn-secondary {
-      background: transparent;
-      border: 1px solid var(--border);
-      color: var(--text);
-    }
-
-    .auth-tabs {
-      display: flex;
-      margin-bottom: 20px;
-      background: #0f1425;
-      border-radius: 8px;
-      padding: 4px;
-    }
-
-    .auth-tab {
-      flex: 1;
-      padding: 8px;
-      text-align: center;
-      background: transparent;
-      border: none;
-      color: var(--muted);
-      border-radius: 6px;
-      cursor: pointer;
-      font-weight: 600;
-      font-size: 13px;
-    }
-
-    .auth-tab.active {
-      background: rgba(96, 165, 250, 0.15);
-      color: var(--accent-2);
-    }
-
-    .user-menu {
-      position: relative;
-    }
-
-    .user-btn {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      background: rgba(96, 165, 250, 0.1);
-      border: 1px solid rgba(96, 165, 250, 0.2);
-      color: var(--accent-2);
-      padding: 6px 12px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-weight: 600;
-      font-size: 13px;
-    }
-
-    .user-dropdown {
-      position: absolute;
-      top: 100%;
-      right: 0;
-      margin-top: 8px;
-      background: var(--panel);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      min-width: 160px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-      display: none;
-      z-index: 20;
-    }
-
-    .user-dropdown.show {
-      display: block;
-    }
-
-    .user-dropdown-item {
-      display: block;
-      width: 100%;
-      padding: 10px 14px;
-      background: none;
-      border: none;
-      text-align: left;
-      color: var(--text);
-      cursor: pointer;
-      font-size: 13px;
-    }
-
-    .user-dropdown-item:hover {
-      background: rgba(96, 165, 250, 0.1);
-    }
-
-    .user-dropdown-divider {
-      height: 1px;
-      background: var(--border);
-      margin: 4px 0;
-    }
-
-    /* Modal de perfil simplificado */
-    .profile-info {
-      background: #0f1425;
-      border-radius: 8px;
-      padding: 16px;
-      margin-bottom: 20px;
-    }
-
-    .profile-field {
-      display: flex;
-      justify-content: space-between;
-      padding: 8px 0;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .profile-field:last-child {
-      border-bottom: none;
-    }
-
-    .profile-label {
-      color: var(--muted);
-      font-weight: 500;
-    }
-
-    .profile-value {
-      color: var(--text);
-    }
+    .profile-info { background: #0f1425; border-radius: 8px; padding: 16px; margin-bottom: 20px }
+    .profile-field { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid var(--border) }
+    .profile-field:last-child { border-bottom: none }
+    .profile-label { color: var(--muted); font-weight: 500 }
+    .profile-value { color: var(--text) }
   </style>
-  <!-- Firebase App e Authentication -->
+
+  <!-- Firebase App e Services (Compat v9) -->
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
@@ -483,11 +146,8 @@
     <p class="hint">Dica: ative "Auto atualizar" para ver mudanças em tempo real.</p>
     <div id="auth-section">
       <button id="login-btn" class="btn accent">Entrar / Cadastrar</button>
-      <div id="user-section" class="user-menu" style="display: none;">
-        <button id="user-btn" class="user-btn">
-          <span id="user-name">Usuário</span>
-          <span>▼</span>
-        </button>
+      <div id="user-section" class="user-menu" style="display:none">
+        <button id="user-btn" class="user-btn"><span id="user-name">Usuário</span><span>▼</span></button>
         <div id="user-dropdown" class="user-dropdown">
           <button class="user-dropdown-item" id="profile-btn">Meu Perfil</button>
           <div class="user-dropdown-divider"></div>
@@ -508,9 +168,7 @@
             <button class="btn tab" data-note="3">Nota 3</button>
           </div>
           <div class="group">
-            <label class="tick">
-              <input id="auto" type="checkbox" checked /> Auto atualizar
-            </label>
+            <label class="tick"><input id="auto" type="checkbox" checked /> Auto atualizar</label>
           </div>
           <div class="group">
             <button id="run" class="btn accent">Executar</button>
@@ -521,21 +179,16 @@
       </div>
 
       <div class="editor-wrap">
-        <div class="line-numbers">
-          <pre id="lnContent" class="line-numbers-inner">1</pre>
-        </div>
+        <div class="line-numbers"><pre id="lnContent" class="line-numbers-inner">1</pre></div>
         <textarea id="code" class="code" spellcheck="false"></textarea>
       </div>
-
       <div class="status" id="status">Pronto</div>
     </section>
 
     <section class="panel" aria-label="Visualização do HTML">
       <div class="panel-head">
         <div class="panel-title">Visualização</div>
-        <div class="controls">
-          <button id="popup" class="btn">Abrir em nova aba</button>
-        </div>
+        <div class="controls"><button id="popup" class="btn">Abrir em nova aba</button></div>
       </div>
       <iframe id="preview" title="Pré-visualização" sandbox="allow-forms allow-modals allow-pointer-lock allow-popups allow-scripts"></iframe>
       <div class="status">Isolado em iframe com sandbox</div>
@@ -543,7 +196,7 @@
   </main>
 
   <!-- Modal de Autenticação -->
-  <div id="auth-modal" class="modal-overlay" style="display: none;">
+  <div id="auth-modal" class="modal-overlay" style="display:none">
     <div class="modal">
       <div class="modal-header">
         <div class="modal-title">Autenticação</div>
@@ -569,7 +222,7 @@
           <div class="form-error" id="login-error"></div>
         </form>
 
-        <form id="register-form" style="display: none;">
+        <form id="register-form" style="display:none">
           <div class="form-group">
             <label class="form-label" for="register-name">Nome</label>
             <input type="text" id="register-name" class="form-input" required>
@@ -600,8 +253,8 @@
     </div>
   </div>
 
-  <!-- Modal de Perfil Simplificado -->
-  <div id="profile-modal" class="modal-overlay" style="display: none;">
+  <!-- Modal de Perfil -->
+  <div id="profile-modal" class="modal-overlay" style="display:none">
     <div class="modal">
       <div class="modal-header">
         <div class="modal-title">Informações da Conta</div>
@@ -609,91 +262,79 @@
       </div>
       <div class="modal-body">
         <div class="profile-info">
-          <div class="profile-field">
-            <span class="profile-label">Nome:</span>
-            <span class="profile-value" id="profile-name"></span>
-          </div>
-          <div class="profile-field">
-            <span class="profile-label">E-mail:</span>
-            <span class="profile-value" id="profile-email"></span>
-          </div>
-          <div class="profile-field">
-            <span class="profile-label">ID do Usuário:</span>
-            <span class="profile-value" id="profile-uid"></span>
-          </div>
-          <div class="profile-field">
-            <span class="profile-label">Data de Criação:</span>
-            <span class="profile-value" id="profile-created"></span>
-          </div>
+          <div class="profile-field"><span class="profile-label">Nome:</span><span class="profile-value" id="profile-name"></span></div>
+          <div class="profile-field"><span class="profile-label">E-mail:</span><span class="profile-value" id="profile-email"></span></div>
+          <div class="profile-field"><span class="profile-label">ID do Usuário:</span><span class="profile-value" id="profile-uid"></span></div>
+          <div class="profile-field"><span class="profile-label">Data de Criação:</span><span class="profile-value" id="profile-created"></span></div>
         </div>
       </div>
-      <div class="modal-footer">
-        <button class="modal-action btn-secondary" id="profile-modal-close-btn">Fechar</button>
-      </div>
+      <div class="modal-footer"><button class="modal-action btn-secondary" id="profile-modal-close-btn">Fechar</button></div>
     </div>
   </div>
 
   <script>
-    (function() {
-      // Configuração do Firebase
-      const firebaseConfig = {
-        apiKey: "AIzaSyAn_V4nYTDWPbdI76OCkqCGbIVCajs86t4",
-        authDomain: "codivio-587346843304678409486.firebaseapp.com",
-        projectId: "codivio-587346843304678409486",
-        storageBucket: "codivio-587346843304678409486.firebasestorage.app",
-        messagingSenderId: "818523317905",
-        appId: "1:818523317905:web:87f7c5e32eceed4a478130"
-      };
-      // Inicializar Firebase
-      firebase.initializeApp(firebaseConfig);
-      const auth = firebase.auth();
-      const db = firebase.firestore();
-      const el = {
-        code: document.getElementById('code'),
-        preview: document.getElementById('preview'),
-        run: document.getElementById('run'),
-        reset: document.getElementById('reset'),
-        download: document.getElementById('download'),
-        auto: document.getElementById('auto'),
-        status: document.getElementById('status'),
-        popup: document.getElementById('popup'),
-        noteBtns: Array.from(document.querySelectorAll('[data-note]')),
-        lnContent: document.getElementById('lnContent'),
-        // Elementos de autenticação
-        authModal: document.getElementById('auth-modal'),
-        modalClose: document.getElementById('modal-close'),
-        loginForm: document.getElementById('login-form'),
-        registerForm: document.getElementById('register-form'),
-        authTabs: document.querySelectorAll('.auth-tab'),
-        authSubmit: document.getElementById('auth-submit'),
-        authSwitch: document.getElementById('auth-switch'),
-        loginBtn: document.getElementById('login-btn'),
-        userSection: document.getElementById('user-section'),
-        userBtn: document.getElementById('user-btn'),
-        userDropdown: document.getElementById('user-dropdown'),
-        userName: document.getElementById('user-name'),
-        logoutBtn: document.getElementById('logout-btn'),
-        profileBtn: document.getElementById('profile-btn'),
-        // Campos de formulário
-        loginEmail: document.getElementById('login-email'),
-        loginPassword: document.getElementById('login-password'),
-        registerName: document.getElementById('register-name'),
-        registerEmail: document.getElementById('register-email'),
-        registerPassword: document.getElementById('register-password'),
-        registerConfirm: document.getElementById('register-confirm'),
-        // Elementos de erro
-        loginError: document.getElementById('login-error'),
-        registerError: document.getElementById('register-error'),
-        // Elementos do modal de perfil
-        profileModal: document.getElementById('profile-modal'),
-        profileModalClose: document.getElementById('profile-modal-close'),
-        profileModalCloseBtn: document.getElementById('profile-modal-close-btn'),
-        profileName: document.getElementById('profile-name'),
-        profileEmail: document.getElementById('profile-email'),
-        profileUid: document.getElementById('profile-uid'),
-        profileCreated: document.getElementById('profile-created')
-      };
-      const TEMPLATE = `<!DOCTYPE html>
+  (function() {
+    // Configuração do Firebase (substitua pelos dados do seu projeto se necessário)
+  const firebaseConfig = {
+    apiKey: "AIzaSyCUxgrebbln4tS-0ZkBFgRJd_TPxlF9nxg",
+    authDomain: "codivio-32573207520375023545.firebaseapp.com",
+    projectId: "codivio-32573207520375023545",
+    storageBucket: "codivio-32573207520375023545.firebasestorage.app",
+    messagingSenderId: "845641232484",
+    appId: "1:845641232484:web:cf0ab0ad3f0897db10af71"
+  };
+
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const db = firebase.firestore();
+
+    const el = {
+      code: document.getElementById('code'),
+      preview: document.getElementById('preview'),
+      run: document.getElementById('run'),
+      reset: document.getElementById('reset'),
+      download: document.getElementById('download'),
+      auto: document.getElementById('auto'),
+      status: document.getElementById('status'),
+      popup: document.getElementById('popup'),
+      noteBtns: Array.from(document.querySelectorAll('[data-note]')),
+      lnContent: document.getElementById('lnContent'),
+      // Auth
+      authModal: document.getElementById('auth-modal'),
+      modalClose: document.getElementById('modal-close'),
+      loginForm: document.getElementById('login-form'),
+      registerForm: document.getElementById('register-form'),
+      authTabs: document.querySelectorAll('.auth-tab'),
+      authSubmit: document.getElementById('auth-submit'),
+      authSwitch: document.getElementById('auth-switch'),
+      loginBtn: document.getElementById('login-btn'),
+      userSection: document.getElementById('user-section'),
+      userBtn: document.getElementById('user-btn'),
+      userDropdown: document.getElementById('user-dropdown'),
+      userName: document.getElementById('user-name'),
+      logoutBtn: document.getElementById('logout-btn'),
+      profileBtn: document.getElementById('profile-btn'),
+      // Campos
+      loginEmail: document.getElementById('login-email'),
+      loginPassword: document.getElementById('login-password'),
+      registerName: document.getElementById('register-name'),
+      registerEmail: document.getElementById('register-email'),
+      registerPassword: document.getElementById('register-password'),
+      registerConfirm: document.getElementById('register-confirm'),
+      // Erros
+      loginError: document.getElementById('login-error'),
+      registerError: document.getElementById('register-error'),
+      // Perfil
+      profileModal: document.getElementById('profile-modal'),
+      profileModalClose: document.getElementById('profile-modal-close'),
+      profileModalCloseBtn: document.getElementById('profile-modal-close-btn'),
+      profileName: document.getElementById('profile-name'),
+      profileEmail: document.getElementById('profile-email'),
+      profileUid: document.getElementById('profile-uid'),
+      profileCreated: document.getElementById('profile-created')
+    };
+
+    const TEMPLATE = `<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
@@ -705,447 +346,345 @@
   <p>Esta é uma página HTML simples.</p>
 </body>
 </html>`;
-      // Estados da aplicação
-      let currentUser = null;
-      let isLoginMode = true;
-      let dirty = false;
-      let activeNote = Number(localStorage.getItem('activeNote')) || 1;
-      // Funções de autenticação
-      function showAuthModal() {
-        el.authModal.style.display = 'flex';
-      }
 
-      function hideAuthModal() {
-        el.authModal.style.display = 'none';
-        clearFormErrors();
-      }
+    let currentUser = null;
+    let isLoginMode = true;
+    let dirty = false;
+    let activeNote = Number(localStorage.getItem('activeNote')) || 1;
 
-      function showProfileModal() {
-        if (!currentUser) return;
-        loadProfileData();
-        el.profileModal.style.display = 'flex';
-      }
+    // Utilidades
+    const debounce = (fn, ms = 300) => {
+      let t;
+      return (...args) => { clearTimeout(t); t = setTimeout(() => fn(...args), ms); };
+    };
 
-      function hideProfileModal() {
-        el.profileModal.style.display = 'none';
-      }
+    function updateStatus(extra = '') {
+      const time = new Date().toLocaleTimeString();
+      el.status.textContent = `Atualizado (Nota ${activeNote}) às ${time}${extra ? ' • ' + extra : ''}`;
+    }
 
-      function switchAuthMode() {
-        isLoginMode = !isLoginMode;
-        if (isLoginMode) {
-          el.loginForm.style.display = 'block';
-          el.registerForm.style.display = 'none';
-          el.authSubmit.textContent = 'Entrar';
-          el.authSwitch.textContent = 'Criar uma conta';
-          document.querySelector('[data-tab="login"]').classList.add('active');
-          document.querySelector('[data-tab="register"]').classList.remove('active');
-        } else {
-          el.loginForm.style.display = 'none';
-          el.registerForm.style.display = 'block';
-          el.authSubmit.textContent = 'Criar Conta';
-          el.authSwitch.textContent = 'Já tenho uma conta';
-          document.querySelector('[data-tab="register"]').classList.add('active');
-          document.querySelector('[data-tab="login"]').classList.remove('active');
-        }
-        clearFormErrors();
-      }
+    function updatePreview(src) {
+      el.preview.srcdoc = src;
+      updateStatus();
+    }
 
-      function clearFormErrors() {
-        const errors = document.querySelectorAll('.form-error');
-        errors.forEach(error => {
-          error.classList.remove('show');
-          error.textContent = '';
+    function setActiveNoteUI() {
+      el.noteBtns.forEach((b) => b.classList.toggle('active', Number(b.dataset.note) === activeNote));
+    }
+
+    function updateLineNumbers() {
+      const total = Math.max(1, el.code.value.split('\n').length);
+      el.lnContent.textContent = Array.from({ length: total }, (_, i) => i + 1).join('\n');
+    }
+
+    function syncLineScroll() {
+      el.lnContent.style.transform = `translateY(-${el.code.scrollTop}px)`;
+    }
+
+    function showAuthModal(){ el.authModal.style.display = 'flex'; }
+    function hideAuthModal(){ el.authModal.style.display = 'none'; clearFormErrors(); }
+
+    function showProfileModal(){ if(!currentUser) return; loadProfileData(); el.profileModal.style.display = 'flex'; }
+    function hideProfileModal(){ el.profileModal.style.display = 'none'; }
+
+    function switchAuthMode(){
+      isLoginMode = !isLoginMode;
+      if(isLoginMode){
+        el.loginForm.style.display = 'block';
+        el.registerForm.style.display = 'none';
+        el.authSubmit.textContent = 'Entrar';
+        el.authSwitch.textContent = 'Criar uma conta';
+        document.querySelector('[data-tab="login"]').classList.add('active');
+        document.querySelector('[data-tab="register"]').classList.remove('active');
+      } else {
+        el.loginForm.style.display = 'none';
+        el.registerForm.style.display = 'block';
+        el.authSubmit.textContent = 'Criar Conta';
+        el.authSwitch.textContent = 'Já tenho uma conta';
+        document.querySelector('[data-tab="register"]').classList.add('active');
+        document.querySelector('[data-tab="login"]').classList.remove('active');
+      }
+      clearFormErrors();
+    }
+
+    function clearFormErrors(){ document.querySelectorAll('.form-error').forEach(e=>{ e.classList.remove('show'); e.textContent=''; }); }
+    function showError(element, message){ element.textContent = message; element.classList.add('show'); }
+
+    async function handleLogin(){
+      const email = el.loginEmail.value.trim();
+      const password = el.loginPassword.value;
+      clearFormErrors();
+      if(!email){ return showError(el.loginError,'Por favor, informe seu e-mail.'); }
+      if(!password){ return showError(el.loginError,'Por favor, informe sua senha.'); }
+      try {
+        const result = await auth.signInWithEmailAndPassword(email, password);
+        currentUser = result.user;
+        hideAuthModal();
+        updateUIForUser();
+        await loadUserNotes();
+      } catch (error) {
+        showError(el.loginError, getAuthErrorMessage(error.code));
+      }
+    }
+
+    async function handleRegister(){
+      const name = el.registerName.value.trim();
+      const email = el.registerEmail.value.trim();
+      const password = el.registerPassword.value;
+      const confirm = el.registerConfirm.value;
+      clearFormErrors();
+      if(!name) return showError(el.registerError,'Por favor, informe seu nome.');
+      if(!email) return showError(el.registerError,'Por favor, informe seu e-mail.');
+      if(!password) return showError(el.registerError,'Por favor, crie uma senha.');
+      if(password !== confirm) return showError(el.registerError,'As senhas não coincidem.');
+      if(password.length < 6) return showError(el.registerError,'A senha deve ter pelo menos 6 caracteres.');
+      try {
+        const result = await auth.createUserWithEmailAndPassword(email, password);
+        await db.collection('users').doc(result.user.uid).set({
+          name, email, createdAt: firebase.firestore.FieldValue.serverTimestamp()
         });
+        currentUser = result.user;
+        // Opcional: setar displayName
+        try { await result.user.updateProfile({ displayName: name }); } catch {}
+        hideAuthModal();
+        updateUIForUser();
+        await loadUserNotes();
+      } catch (error) {
+        showError(el.registerError, getAuthErrorMessage(error.code));
       }
+    }
 
-      function showError(element, message) {
-        element.textContent = message;
-        element.classList.add('show');
-      }
-      async function handleLogin() {
-        const email = el.loginEmail.value;
-        const password = el.loginPassword.value;
-        clearFormErrors();
-        if (!email) {
-          showError(el.loginError, 'Por favor, informe seu e-mail.');
-          return;
-        }
-        if (!password) {
-          showError(el.loginError, 'Por favor, informe sua senha.');
-          return;
-        }
-        try {
-          const result = await auth.signInWithEmailAndPassword(email, password);
-          currentUser = result.user;
-          hideAuthModal();
-          updateUIForUser();
-          loadUserNotes();
-        } catch (error) {
-          showError(el.loginError, getAuthErrorMessage(error.code));
-        }
-      }
-      async function handleRegister() {
-        const name = el.registerName.value;
-        const email = el.registerEmail.value;
-        const password = el.registerPassword.value;
-        const confirm = el.registerConfirm.value;
-        clearFormErrors();
-        if (!name) {
-          showError(el.registerError, 'Por favor, informe seu nome.');
-          return;
-        }
-        if (!email) {
-          showError(el.registerError, 'Por favor, informe seu e-mail.');
-          return;
-        }
-        if (!password) {
-          showError(el.registerError, 'Por favor, crie uma senha.');
-          return;
-        }
-        if (password !== confirm) {
-          showError(el.registerError, 'As senhas não coincidem.');
-          return;
-        }
-        if (password.length < 6) {
-          showError(el.registerError, 'A senha deve ter pelo menos 6 caracteres.');
-          return;
-        }
-        try {
-          const result = await auth.createUserWithEmailAndPassword(email, password);
-          // Salvar nome do usuário no Firestore
-          await db.collection('users').doc(result.user.uid).set({
-            name: name,
-            email: email,
-            createdAt: firebase.firestore.FieldValue.serverTimestamp()
-          });
-          currentUser = result.user;
-          hideAuthModal();
-          updateUIForUser();
-        } catch (error) {
-          showError(el.registerError, getAuthErrorMessage(error.code));
-        }
-      }
-      async function handleLogout() {
-        try {
-          await auth.signOut();
-          currentUser = null;
-          updateUIForUser();
-          // Voltar para o armazenamento local
-          el.code.value = load(activeNote);
-          updateLineNumbers();
-          run();
-        } catch (error) {
-          console.error('Erro ao fazer logout:', error);
-        }
-      }
+    async function handleLogout(){
+      try {
+        await auth.signOut();
+        currentUser = null;
+        updateUIForUser();
+        el.code.value = loadLocal(activeNote);
+        updateLineNumbers();
+        run();
+      } catch (error) { console.error('Erro ao fazer logout:', error); }
+    }
 
-      function getAuthErrorMessage(errorCode) {
-        switch (errorCode) {
-          case 'auth/invalid-email':
-            return 'E-mail inválido.';
-          case 'auth/user-disabled':
-            return 'Esta conta foi desativada.';
-          case 'auth/user-not-found':
-            return 'Nenhuma conta encontrada com este e-mail.';
-          case 'auth/wrong-password':
-            return 'Senha incorreta.';
-          case 'auth/email-already-in-use':
-            return 'Este e-mail já está em uso.';
-          case 'auth/weak-password':
-            return 'A senha é muito fraca.';
-          default:
-            return 'Ocorreu um erro. Tente novamente.';
-        }
+    function getAuthErrorMessage(code){
+      switch(code){
+        case 'auth/invalid-email': return 'E-mail inválido.';
+        case 'auth/user-disabled': return 'Esta conta foi desativada.';
+        case 'auth/user-not-found': return 'Nenhuma conta encontrada com este e-mail.';
+        case 'auth/wrong-password': return 'Senha incorreta.';
+        case 'auth/email-already-in-use': return 'Este e-mail já está em uso.';
+        case 'auth/weak-password': return 'A senha é muito fraca.';
+        default: return 'Ocorreu um erro. Tente novamente.';
       }
+    }
 
-      function updateUIForUser() {
-        if (currentUser) {
-          el.loginBtn.style.display = 'none';
-          el.userSection.style.display = 'block';
-          el.userName.textContent = currentUser.displayName || currentUser.email;
+    function updateUIForUser(){
+      if(currentUser){
+        el.loginBtn.style.display = 'none';
+        el.userSection.style.display = 'block';
+        el.userName.textContent = currentUser.displayName || currentUser.email;
+      } else {
+        el.loginBtn.style.display = 'block';
+        el.userSection.style.display = 'none';
+      }
+    }
+
+    function toggleUserDropdown(){ el.userDropdown.classList.toggle('show'); }
+
+    async function loadProfileData(){
+      if(!currentUser) return;
+      try {
+        const doc = await db.collection('users').doc(currentUser.uid).get();
+        if(doc.exists){
+          const d = doc.data();
+          el.profileName.textContent = d.name || 'Não definido';
+          el.profileEmail.textContent = currentUser.email;
+          el.profileUid.textContent = currentUser.uid;
+          el.profileCreated.textContent = d.createdAt ? d.createdAt.toDate().toLocaleDateString('pt-BR') : 'Não disponível';
         } else {
-          el.loginBtn.style.display = 'block';
-          el.userSection.style.display = 'none';
-        }
-      }
-
-      function toggleUserDropdown() {
-        el.userDropdown.classList.toggle('show');
-      }
-      // Funções para o perfil do usuário
-      async function loadProfileData() {
-        if (!currentUser) return;
-        try {
-          // Carregar dados do usuário do Firestore
-          const userDoc = await db.collection('users').doc(currentUser.uid).get();
-          if (userDoc.exists) {
-            const userData = userDoc.data();
-            el.profileName.textContent = userData.name || 'Não definido';
-            el.profileEmail.textContent = currentUser.email;
-            el.profileUid.textContent = currentUser.uid;
-            if (userData.createdAt) {
-              const createdDate = userData.createdAt.toDate();
-              el.profileCreated.textContent = createdDate.toLocaleDateString('pt-BR');
-            } else {
-              el.profileCreated.textContent = 'Não disponível';
-            }
-          } else {
-            // Se não houver dados no Firestore, usar dados básicos do auth
-            el.profileName.textContent = currentUser.displayName || 'Não definido';
-            el.profileEmail.textContent = currentUser.email;
-            el.profileUid.textContent = currentUser.uid;
-            el.profileCreated.textContent = 'Não disponível';
-          }
-        } catch (error) {
-          console.error('Erro ao carregar dados do perfil:', error);
-          // Em caso de erro, mostrar dados básicos
           el.profileName.textContent = currentUser.displayName || 'Não definido';
           el.profileEmail.textContent = currentUser.email;
           el.profileUid.textContent = currentUser.uid;
-          el.profileCreated.textContent = 'Erro ao carregar';
+          el.profileCreated.textContent = 'Não disponível';
         }
+      } catch (e) {
+        console.error('Erro ao carregar dados do perfil:', e);
+        el.profileName.textContent = currentUser.displayName || 'Não definido';
+        el.profileEmail.textContent = currentUser.email;
+        el.profileUid.textContent = currentUser.uid;
+        el.profileCreated.textContent = 'Erro ao carregar';
       }
-      // Funções para salvar/carregar notas do Firestore
-      async function saveUserNote(noteId, content) {
-        if (!currentUser) return;
-        try {
-          await db.collection('users').doc(currentUser.uid)
-            .collection('notes').doc(noteId.toString()).set({
-              content: content,
-              updatedAt: firebase.firestore.FieldValue.serverTimestamp()
-            });
-        } catch (error) {
-          console.error('Erro ao salvar nota:', error);
-          el.status.textContent = 'Erro ao salvar nota.';
-        }
+    }
+
+    // Persistência de notas
+    async function saveUserNote(noteId, content){
+      if(!currentUser) return;
+      try {
+        await db.collection('users').doc(currentUser.uid).collection('notes').doc(String(noteId)).set({
+          content,
+          updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+        });
+      } catch (e){ console.error('Erro ao salvar nota:', e); el.status.textContent = 'Erro ao salvar nota.'; }
+    }
+
+    async function loadUserNote(noteId){
+      if(!currentUser) return TEMPLATE;
+      try {
+        const doc = await db.collection('users').doc(currentUser.uid).collection('notes').doc(String(noteId)).get();
+        return doc.exists ? (doc.data().content || TEMPLATE) : TEMPLATE;
+      } catch (e){ console.error('Erro ao carregar nota:', e); return TEMPLATE; }
+    }
+
+    async function loadUserNotes(){
+      if(!currentUser) return;
+      const content = await loadUserNote(activeNote);
+      el.code.value = content;
+      updateLineNumbers();
+      run();
+    }
+
+    // LocalStorage para anônimo
+    function loadLocal(n){
+      const legacy = localStorage.getItem('mini-html-editor');
+      const hasNote = localStorage.getItem(`note-${n}`);
+      return hasNote || (n === 1 && legacy) || TEMPLATE;
+    }
+    function saveLocal(n, val){ localStorage.setItem(`note-${n}`, val); }
+
+    // Execução
+    function run(){
+      const html = el.code.value;
+      if(currentUser){ saveUserNote(activeNote, html); } else { saveLocal(activeNote, html); }
+      updatePreview(html);
+      dirty = false;
+    }
+
+    function reset(){
+      if(!confirm(`Limpar a Nota ${activeNote} e voltar ao modelo inicial?`)) return;
+      el.code.value = TEMPLATE;
+      updateLineNumbers();
+      run();
+    }
+
+    function download(){
+      const blob = new Blob([el.code.value], { type: 'text/html;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url; a.download = `index-nota-${activeNote}.html`;
+      document.body.appendChild(a); a.click(); a.remove();
+      URL.revokeObjectURL(url);
+    }
+
+    function popup(){
+      const win = window.open('', '_blank');
+      if(win){ win.document.open(); win.document.write(el.code.value); win.document.close(); }
+      else { alert('Permita pop-ups para abrir em nova aba.'); }
+    }
+
+    // Troca de nota — corrigido para NÃO sobrescrever no Firestore
+    async function switchNote(n){
+      n = Number(n);
+      if(n === activeNote) return;
+      if(!el.auto.checked && dirty){
+        const choice = confirm('Deseja salvar as alterações da nota atual antes de trocar?');
+        if(choice) run(); else { dirty = false; updateStatus('alterações descartadas'); }
       }
-      async function loadUserNote(noteId) {
-        if (!currentUser) return TEMPLATE;
-        try {
-          const doc = await db.collection('users').doc(currentUser.uid)
-            .collection('notes').doc(noteId.toString()).get();
-          if (doc.exists) {
-            return doc.data().content;
-          } else {
-            return TEMPLATE;
-          }
-        } catch (error) {
-          console.error('Erro ao carregar nota:', error);
-          return TEMPLATE;
-        }
-      }
-      async function loadUserNotes() {
-        if (!currentUser) return;
-        // Carregar a nota ativa
-        const content = await loadUserNote(activeNote);
+      activeNote = n;
+      localStorage.setItem('activeNote', n);
+
+      if(currentUser){
+        const content = await loadUserNote(n); // busca do Firestore antes de preencher
         el.code.value = content;
-        updateLineNumbers();
-        run();
+      } else {
+        el.code.value = loadLocal(n);
       }
-      // Modificações nas funções existentes para suportar Firebase
-      const load = (n) => {
-        if (currentUser) {
-          // Para usuários logados, carregamos do Firestore de forma assíncrona
-          // Mas retornamos o valor atual enquanto carrega
-          return el.code.value || TEMPLATE;
-        } else {
-          // Para usuários não logados, usamos localStorage como antes
-          const legacy = localStorage.getItem('mini-html-editor');
-          const hasNote = localStorage.getItem(`note-${n}`);
-          return hasNote || (n === 1 && legacy) || TEMPLATE;
-        }
-      };
-      const save = (n, val) => {
-        if (currentUser) {
-          saveUserNote(n, val);
-        } else {
-          localStorage.setItem(`note-${n}`, val);
-        }
-      };
-      // Event listeners para autenticação
-      el.loginBtn.addEventListener('click', showAuthModal);
-      el.modalClose.addEventListener('click', hideAuthModal);
-      el.authTabs.forEach(tab => {
-        tab.addEventListener('click', () => {
-          if (tab.dataset.tab === 'login' && !isLoginMode) {
-            switchAuthMode();
-          } else if (tab.dataset.tab === 'register' && isLoginMode) {
-            switchAuthMode();
-          }
-        });
-      });
-      el.authSubmit.addEventListener('click', () => {
-        if (isLoginMode) {
-          handleLogin();
-        } else {
-          handleRegister();
-        }
-      });
-      el.authSwitch.addEventListener('click', switchAuthMode);
-      el.userBtn.addEventListener('click', toggleUserDropdown);
-      el.logoutBtn.addEventListener('click', handleLogout);
-      el.profileBtn.addEventListener('click', showProfileModal);
-      el.profileModalClose.addEventListener('click', hideProfileModal);
-      el.profileModalCloseBtn.addEventListener('click', hideProfileModal);
-      // Fechar dropdown ao clicar fora dele
-      document.addEventListener('click', (e) => {
-        if (el.userDropdown.classList.contains('show') &&
-          !el.userBtn.contains(e.target) &&
-          !el.userDropdown.contains(e.target)) {
-          el.userDropdown.classList.remove('show');
-        }
-      });
-      // Observar estado de autenticação
-      auth.onAuthStateChanged((user) => {
-        currentUser = user;
-        updateUIForUser();
-        if (user) {
-          loadUserNotes();
-        } else {
-          // Se não estiver logado, usar localStorage
-          el.code.value = load(activeNote);
-          updateLineNumbers();
-          run();
-        }
-      });
-      // O restante do código existente permanece igual, mas com pequenas modificações
-      // para usar as funções load/save atualizadas
-      // Debounce
-      let t;
-      const debounce = (fn, ms = 300) => (...args) => {
-        clearTimeout(t);
-        t = setTimeout(() => fn(...args), ms);
-      };
-
-      function updateStatus(extra = '') {
-        const time = new Date().toLocaleTimeString();
-        el.status.textContent = `Atualizado (Nota ${activeNote}) às ${time}${extra ? ' • ' + extra : ''}`;
-      }
-
-      function updatePreview(src) {
-        el.preview.srcdoc = src;
-        updateStatus();
-      }
-
-      function setActiveNoteUI() {
-        el.noteBtns.forEach((b) => {
-          b.classList.toggle('active', Number(b.dataset.note) === activeNote);
-        });
-      }
-
-      function updateLineNumbers() {
-        const total = Math.max(1, el.code.value.split('\n').length);
-        el.lnContent.textContent = Array.from({
-          length: total
-        }, (_, i) => i + 1).join('\n');
-      }
-
-      function syncLineScroll() {
-        el.lnContent.style.transform = `translateY(-${el.code.scrollTop}px)`;
-      }
-
-      function run() {
-        const html = el.code.value;
-        save(activeNote, html);
-        updatePreview(html);
-        dirty = false;
-      }
-
-      function reset() {
-        if (!confirm(`Limpar a Nota ${activeNote} e voltar ao modelo inicial?`)) return;
-        el.code.value = TEMPLATE;
-        updateLineNumbers();
-        run();
-      }
-
-      function download() {
-        const blob = new Blob([el.code.value], {
-          type: 'text/html;charset=utf-8'
-        });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = `index-nota-${activeNote}.html`;
-        document.body.appendChild(a);
-        a.click();
-        a.remove();
-        URL.revokeObjectURL(url);
-      }
-
-      function popup() {
-        const win = window.open('', '_blank');
-        if (win) {
-          win.document.open();
-          win.document.write(el.code.value);
-          win.document.close();
-        } else {
-          alert('Permita pop-ups para abrir em nova aba.');
-        }
-      }
-
-      function switchNote(n) {
-        n = Number(n);
-        if (n === activeNote) return;
-        if (!el.auto.checked && dirty) {
-          const choice = confirm('Deseja salvar as alterações da nota atual antes de trocar?');
-          if (choice) {
-            run();
-          } else {
-            dirty = false;
-            updateStatus('alterações descartadas');
-          }
-        }
-        activeNote = n;
-        localStorage.setItem('activeNote', n);
-        el.code.value = load(n);
-        updateLineNumbers();
-        run();
-        setActiveNoteUI();
-        syncLineScroll();
-      }
-      // Inicialização
-      el.code.value = load(activeNote);
       updateLineNumbers();
       run();
       setActiveNoteUI();
       syncLineScroll();
-      // Event listeners existentes
-      el.run.addEventListener('click', run);
-      el.reset.addEventListener('click', reset);
-      el.download.addEventListener('click', download);
-      el.popup.addEventListener('click', popup);
-      const onType = debounce(() => {
-        if (el.auto.checked) run();
-      }, 300);
-      el.code.addEventListener('input', () => {
-        dirty = true;
-        updateLineNumbers();
-        onType();
-      });
-      el.code.addEventListener('scroll', syncLineScroll);
-      el.auto.addEventListener('change', () => {
-        el.run.disabled = el.auto.checked;
-        if (el.auto.checked) run();
-      });
-      el.run.disabled = el.auto.checked;
-      el.noteBtns.forEach((btn) => {
-        btn.addEventListener('click', () => switchNote(btn.dataset.note));
-      });
-      el.code.addEventListener('keydown', (e) => {
-        if (e.key === 'Tab') {
-          e.preventDefault();
-          const start = el.code.selectionStart;
-          const end = el.code.selectionEnd;
-          const val = el.code.value;
-          el.code.value = val.slice(0, start) + '  ' + val.slice(end);
-          el.code.selectionStart = el.code.selectionEnd = start + 2;
-          dirty = true;
-          updateLineNumbers();
-          if (el.auto.checked) onType();
-        }
-      });
-    })();
-  </script>
-</body>
+    }
 
+    // Listeners
+    el.run.addEventListener('click', run);
+    el.reset.addEventListener('click', reset);
+    el.download.addEventListener('click', download);
+    el.popup.addEventListener('click', popup);
+
+    const onType = debounce(() => { if(el.auto.checked) run(); }, 300);
+    el.code.addEventListener('input', () => { dirty = true; updateLineNumbers(); onType(); });
+    el.code.addEventListener('scroll', syncLineScroll);
+    el.auto.addEventListener('change', () => { el.run.disabled = el.auto.checked; if(el.auto.checked) run(); });
+    el.run.disabled = el.auto.checked;
+
+    el.noteBtns.forEach(btn => btn.addEventListener('click', () => switchNote(btn.dataset.note)));
+
+    el.code.addEventListener('keydown', (e) => {
+      if(e.key === 'Tab'){
+        e.preventDefault();
+        const start = el.code.selectionStart; const end = el.code.selectionEnd; const val = el.code.value;
+        el.code.value = val.slice(0, start) + '  ' + val.slice(end);
+        el.code.selectionStart = el.code.selectionEnd = start + 2;
+        dirty = true; updateLineNumbers(); if(el.auto.checked) onType();
+      }
+    });
+
+    // Auth listeners
+    el.loginBtn.addEventListener('click', showAuthModal);
+    el.modalClose.addEventListener('click', hideAuthModal);
+    el.authTabs.forEach(tab => tab.addEventListener('click', () => {
+      if(tab.dataset.tab === 'login' && !isLoginMode) switchAuthMode();
+      if(tab.dataset.tab === 'register' && isLoginMode) switchAuthMode();
+    }));
+    el.authSubmit.addEventListener('click', () => { isLoginMode ? handleLogin() : handleRegister(); });
+    el.authSwitch.addEventListener('click', switchAuthMode);
+
+    el.userBtn.addEventListener('click', (e) => { e.stopPropagation(); toggleUserDropdown(); });
+    el.logoutBtn.addEventListener('click', handleLogout);
+    el.profileBtn.addEventListener('click', showProfileModal);
+    el.profileModalClose.addEventListener('click', hideProfileModal);
+    el.profileModalCloseBtn.addEventListener('click', hideProfileModal);
+
+    // Fechar dropdown ao clicar fora — corrigido e seguro
+    document.addEventListener('click', (e) => {
+      if(el.userDropdown.classList.contains('show') && !document.getElementById('auth-section').contains(e.target)){
+        el.userDropdown.classList.remove('show');
+      }
+    });
+
+    // Estado de autenticação
+    auth.onAuthStateChanged(async (user) => {
+      currentUser = user || null;
+      updateUIForUser();
+      if(user){ await loadUserNotes(); }
+      else {
+        el.code.value = loadLocal(activeNote);
+        updateLineNumbers();
+        run();
+      }
+    });
+
+    // Inicialização: carrega local primeiro; se o usuário autenticar, o onAuthStateChanged substitui
+    el.code.value = loadLocal(activeNote);
+    updateLineNumbers();
+    run();
+    setActiveNoteUI();
+    syncLineScroll();
+  })();
+  </script>
+
+  <!--
+  Firestore Rules sugeridas (Console > Firestore > Rules):
+
+  rules_version = '2';
+  service cloud.firestore {
+    match /databases/{database}/documents {
+      match /users/{userId} {
+        allow read, write: if request.auth != null && request.auth.uid == userId;
+        match /notes/{noteId} {
+          allow read, write: if request.auth != null && request.auth.uid == userId;
+        }
+      }
+    }
+  }
+  -->
+</body>
 </html>
